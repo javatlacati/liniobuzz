@@ -14,6 +14,8 @@ script:
   - nvm use $NODE_VERSION
   - dir
   - cd typescryptimplementation
+  - npm install -g grunt-cli
+  - dir
   - npm install
   - dir
   - cd ..
