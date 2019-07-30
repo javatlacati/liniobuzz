@@ -1,0 +1,19 @@
+language: java
+cache:
+  directories:
+    - $HOME/.m2
+jdk:
+  - openjdk8
+env:
+  - NODE_VERSION=12.6.0
+
+install:
+  - nvm install $NODE_VERSION
+
+script:
+  - nvm use $NODE_VERSION
+  - dir
+  - cd typescryptimplementation
+  - npm install
+  - cd ..
+  - mvn test -B
