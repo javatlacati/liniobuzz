@@ -18,7 +18,11 @@ script:
   - npm install grunt --save-dev
   - npm install grunt-template-jasmine-istanbul --save-dev
   - npm install grunt-template-jasmine-requirejs --save-dev
-  - npm install grunt-contrib-jasmine  --save-dev
+  - npm install grunt-contrib-jasmine --save-dev
+  - npm install grunt-typescript --save-dev
+  - npm install grunt-contrib-clean --save-dev
+  - npm install grunt-contrib-uglify --save-dev
+  - npm install grunt-contrib-yuidoc --save-dev
   - dir
   - npm install
   - dir
