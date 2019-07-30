@@ -15,6 +15,7 @@ script:
   - dir
   - cd typescryptimplementation
   - npm install grunt-cli --save-dev
+  - npm install grunt --save-dev
   - dir
   - npm install
   - dir
