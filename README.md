@@ -3,6 +3,8 @@ Interview exercise for Linio
 
 # Challenge –Backend Developer
 
+[![Build Status](https://travis-ci.org/javatlacati/liniobuzz.svg?branch=master)](https://travis-ci.org/javatlacati/liniobuzz) [![License](https://img.shields.io/badge/license-LGPL--3-blue.svg)](LICENSE)
+
 Write a program that prints all the numbers from 1 to 100. However, for
 multiples of 3, instead of the number, print "Linio". For multiples of 5 print
 "IT". For numbers which are multiples of both 3 and 5, print "Linianos".
