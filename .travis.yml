@@ -15,5 +15,6 @@ script:
   - dir
   - cd typescryptimplementation
   - npm install
+  - dir
   - cd ..
   - mvn test -B
