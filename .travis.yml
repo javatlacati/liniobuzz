@@ -16,6 +16,9 @@ script:
   - cd typescryptimplementation
   - npm install grunt-cli --save-dev
   - npm install grunt --save-dev
+  - npm install grunt-template-jasmine-istanbul --save-dev
+  - npm install grunt-template-jasmine-requirejs --save-dev
+  - npm install grunt-contrib-jasmine  --save-dev
   - dir
   - npm install
   - dir
