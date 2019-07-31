@@ -15,10 +15,10 @@ script:
   - dir
   - cd typescryptimplementation
   - npm install grunt-cli --save-dev
-  - npm install grunt --save-dev
-  - npm install grunt-template-jasmine-istanbul --save-dev
-  - npm install grunt-template-jasmine-requirejs --save-dev
-  - npm install grunt-contrib-jasmine --save-dev
+  - npm install grunt@0.4.5 --save-dev
+  - npm install grunt-template-jasmine-istanbul@0.2.5 --save-dev
+  - npm install grunt-template-jasmine-requirejs0.1.7 --save-dev
+  - npm install grunt-contrib-jasmine@0.5.2 --save-dev
   - npm install grunt-typescript --save-dev
   - npm install grunt-contrib-clean --save-dev
   - npm install grunt-contrib-uglify --save-dev

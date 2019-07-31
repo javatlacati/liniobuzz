@@ -73,7 +73,7 @@ module.exports = function(grunt) {
                 options: {
 
                     // the tests
-                    specs: 'target/js-test/test/**/*Spec.js',
+                    specs: '<%= dir.target_test_js %>/test/**/*Spec.js',
                     keepRunner: true, // useful for debugging
 
                     // -- additional JUnit compliant test reports that Jenkins is able to analyze
@@ -112,7 +112,7 @@ module.exports = function(grunt) {
                             requireConfig: {
                                 // as described in https://github.com/maenu/grunt-template-jasmine-istanbul:
                                 // use instrumented classes rather than the originals
-                                baseUrl: '.grunt/grunt-contrib-jasmine/target/js-test',
+                                baseUrl: '.grunt/grunt-contrib-jasmine/<%= target_test_js %>',
                                 // HACK: Fix nasty 'wrong uri' problem on windows. The location of the reporter.js
                                 //  contains backslashes that can't be resolved by requirejs
                                 map: {
