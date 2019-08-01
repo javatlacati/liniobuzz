@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "types": [
+      "mocha",
+      "chai"
+    ],
+    "rootDirs": ["src/main/ts", "src/test/ts"]
+  }
+}
