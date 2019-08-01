@@ -25,7 +25,8 @@ module.exports = function(grunt) {
             // location to place (compiles) javascript test files
             "target_test_js": "target/js-test",
             // location to place documentation, etc.
-            "target_report": "target/report"
+            "target_report": "target/report",
+            "types": "node_modules/@types"
         },
 
         // ---- clean workspace
@@ -35,45 +36,74 @@ module.exports = function(grunt) {
             }
         },
 
-        // ----- TypeScript compilation
-        //  See https://npmjs.org/package/grunt-typescript
-        typescript: {
-
-            // Compiles main code. Add declaration file files
-            compile: {
-                src: ['<%= dir.source_ts %>/**/*.ts'],
-                dest: '<%= dir.target_js %>',
+        ts: {
+            compile : {
+                tsconfig: './tsconfig.json',
+                src: ['<%= dir.source_ts %>/**/*.ts', '!node_modules/**', '!target/**', '!<%= dir.source_test_ts %>/**'],
+                outDir: "<%= dir.target_js %>",
                 options: {
-                    base_path: '<%= dir.source_ts %>',
+                    rootDir: "<%= dir.source_ts %>",
+                    allowSyntheticDefaultImports: true,
                     target: 'es5',
                     declaration: true,
-                    comments: true,
+                    comments: true, //preserves comments in output.
                     module: 'amd'
                 }
             },
-
-            // Compiles the tests (and the module code again so that import paths are working).
             compile_test: {
-                src: ['<%= dir.source_test_ts %>/**/*.ts','<%= dir.source_ts %>/**/*.ts'],
-                dest: '<%= dir.target_test_js %>',
+                tsconfig: './tsconfig.json',
+                src: ['<%= dir.source_test_ts %>/**/*.ts','<%= dir.source_ts %>/**/*.ts', '!node_modules/**','!target/**'],
+                outDir: '<%= dir.target_test_js %>',
                 options: {
-                    base_path: '<%= dir.source %>',
+                    rootDir: "<%= dir.source %>",
+                    allowSyntheticDefaultImports: true,
                     target: 'es5',
-                    module: 'amd',
+                    module: 'amd'
+                    //references: ['<%= dir.types %>/mocha/**/*.d.ts','<%= dir.types %>/chai/**/*.d.ts']
                 }
             }
         },
 
+        // ----- TypeScript compilation
+        //  See https://npmjs.org/package/grunt-typescript
+        // typescript: {
+        //
+        //     // Compiles main code. Add declaration file files
+        //     compile: {
+        //         src: ['<%= dir.source_ts %>/**/*.ts'],
+        //         dest: '<%= dir.target_js %>',
+        //         options: {
+        //             base_path: '<%= dir.source_ts %>',
+        //             target: 'es5',
+        //             declaration: true,
+        //             comments: true,
+        //             module: 'amd'
+        //         }
+        //     },
+        //
+        //     // Compiles the tests (and the module code again so that import paths are working).
+        //     compile_test: {
+        //         src: ['<%= dir.source_test_ts %>/**/*.ts','<%= dir.source_ts %>/**/*.ts'],
+        //         dest: '<%= dir.target_test_js %>',
+        //         options: {
+        //             base_path: '<%= dir.source %>',
+        //             target: 'es5',
+        //             module: 'amd',
+        //             references: ['<%= dir.types %>/mocha/**/*.d.ts','<%= dir.types %>/chai/**/*.d.ts']
+        //         }
+        //     }
+        // },
+
         // ------- Unit tests with code coverage
         //  See https://github.com/gruntjs/grunt-contrib-jasmine
-        jasmine: {
+        /*jasmine: {
             run: {
                 // the code to be tested
-                src: ['target/js-test/main/**/*.js'],
+                src: ['target/js-test/main/!**!/!*.js'],
                 options: {
 
                     // the tests
-                    specs: '<%= dir.target_test_js %>/test/**/*Spec.js',
+                    specs: '<%= dir.target_test_js %>/test/!**!/!*Spec.js',
                     keepRunner: true, // useful for debugging
 
                     // -- additional JUnit compliant test reports that Jenkins is able to analyze
@@ -112,7 +142,7 @@ module.exports = function(grunt) {
                             requireConfig: {
                                 // as described in https://github.com/maenu/grunt-template-jasmine-istanbul:
                                 // use instrumented classes rather than the originals
-                                baseUrl: '.grunt/grunt-contrib-jasmine/<%= target_test_js %>',
+                                baseUrl: '.grunt/grunt-contrib-jasmine/<%= dir.target_test_js %>',
                                 // HACK: Fix nasty 'wrong uri' problem on windows. The location of the reporter.js
                                 //  contains backslashes that can't be resolved by requirejs
                                 map: {
@@ -126,7 +156,54 @@ module.exports = function(grunt) {
                     }
                 }
             }
+        },*/
+
+        // mocha: {
+        //     all: {
+        //         src: ["<%= dir.source_test_ts %>/testrunner.html"],
+        //         urls: ["<%= dir.source_test_ts %>/testrunner.html"],
+        //         dest: "<%= dir.target %>/surefire-reports/testrunner",
+        //         options: {
+        //             run: true,
+        //             growlOnSuccess: false
+        //         }
+        //     }
+        // },
+        mochacli: {
+            options: {
+                require: ['assert', "amd-loader", "chai", "mocha"],
+                reporter: 'spec',
+                bail: true,
+                timeout: 6000,
+                files: ["<%= dir.target_test_js %>/**/**.js"] // <-- Intentionally empty, to be generated dynamically.
+            },
+            local: {
+                timeout: 25000
+            }
         },
+
+        mochaTest: {
+            src: ["<%= dir.target_test_js %>/**/**.js"],
+            options: {
+                reporter: 'spec',
+                captureFile: '<%= dir.target %>/surefire-reports/testrunner/results.txt',
+                require: ['assert', "amd-loader", "chai", "mocha"]
+            }
+        },
+
+        // mochacov: {
+        //     options: {
+        //         require: ['assert', "amd-loader", "chai", "mocha"],
+        //         reporter: 'nyan',
+        //         bail: true,
+        //         timeout: 6000,
+        //         coveralls: true,
+        //         files: ["<%= dir.target_test_js %>/**/**.js"] // <-- Intentionally empty, to be generated dynamically.
+        //     },
+        //     local: {
+        //         timeout: 25000
+        //     }
+        // },
 
         // ------ Optional: make javascript small (and unreadable)
         //  See https://github.com/gruntjs/grunt-contrib-uglify
@@ -170,20 +247,25 @@ module.exports = function(grunt) {
 
     // ----- Setup tasks
 
-    grunt.loadNpmTasks('grunt-typescript');
+    // grunt.loadNpmTasks('grunt-typescript');
+    grunt.loadNpmTasks("grunt-ts");
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-jasmine');
+    // grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-contrib-yuidoc');
+    // grunt.loadNpmTasks('grunt-mocha');
+    grunt.loadNpmTasks('grunt-mocha-cli');
+    grunt.loadNpmTasks('grunt-mocha-test');
+
 
     // Default task(s).
-    grunt.registerTask('default', ['clean','typescript:compile','typescript:compile_test','jasmine','uglify']);
+    grunt.registerTask('default', ['clean','ts:compile','ts:compile_test','mochacli']);
 
     // Task for running compilation/assembling stuff (corresponds to Maven's "compile" or "resources" lifecycle phase)
-    grunt.registerTask('compile', ['typescript:compile']);
+    grunt.registerTask('compile', ['ts:compile']);
     // Task for running testing stuff (corresponds to Maven's "test" lifecycle phase)
-    grunt.registerTask('test', ['typescript:compile_test', 'jasmine']);
+    grunt.registerTask('test', ['ts:compile_test', 'mochacli']);
     // Task for running testing stuff (corresponds to Maven's "prepare-package" lifecycle phase)
-    grunt.registerTask('package', [/*'uglify'*/]);
+    grunt.registerTask('package', ['uglify']);
 
 };
