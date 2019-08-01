@@ -21,10 +21,11 @@ script:
   - npm install grunt-contrib-uglify --save-dev
   - npm install grunt-contrib-yuidoc --save-dev
   - npm install grunt-mocha-cli --save-dev
-  - npm install grunt-mocha-tes --save-dev
+  - npm install grunt-mocha-test --save-dev
   - npm install typescript --save-dev
   - npm install chai --save-dev
   - npm install mocha --save-dev
+  - npm install amd-loader --save-dev
   - npm install @types/chai --save-dev
   - npm install @types/mocha --save-dev
   - dir
