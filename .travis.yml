@@ -16,13 +16,17 @@ script:
   - cd typescryptimplementation
   - npm install grunt-cli --save-dev
   - npm install grunt@0.4.5 --save-dev
-  - npm install grunt-template-jasmine-istanbul@0.2.5 --save-dev
-  - npm install grunt-template-jasmine-requirejs@0.1.7 --save-dev
-  - npm install grunt-contrib-jasmine@0.5.2 --save-dev
-  - npm install grunt-typescript --save-dev
+  - npm install grunt-ts --save-dev
   - npm install grunt-contrib-clean --save-dev
   - npm install grunt-contrib-uglify --save-dev
   - npm install grunt-contrib-yuidoc --save-dev
+  - npm install grunt-mocha-cli --save-dev
+  - npm install grunt-mocha-tes --save-dev
+  - npm install typescript --save-dev
+  - npm install chai --save-dev
+  - npm install mocha --save-dev
+  - npm install @types/chai --save-dev
+  - npm install @types/mocha --save-dev
   - dir
   - npm install
   - dir
