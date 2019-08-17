@@ -3,7 +3,8 @@ Interview exercise for Linio
 
 # Challenge –Backend Developer
 
-[![Build Status](https://travis-ci.org/javatlacati/liniobuzz.svg?branch=master)](https://travis-ci.org/javatlacati/liniobuzz) [![License](https://img.shields.io/badge/license-LGPL--3-blue.svg)](LICENSE)
+[![Build Status](https://travis-ci.org/javatlacati/liniobuzz.svg?branch=master)](https://travis-ci.org/javatlacati/liniobuzz) [![License](https://img.shields.io/badge/license-LGPL--3-blue.svg)](LICENSE)[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjavatlacati%2Fliniobuzz.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjavatlacati%2Fliniobuzz?ref=badge_shield)
+
 
 Write a program that prints all the numbers from 1 to 100. However, for
 multiples of 3, instead of the number, print "Linio". For multiples of 5 print
@@ -18,3 +19,7 @@ operators or `else`.
 * Unit tests
 * Feel free to apply your SOLID knowledge
 * You can write the challenge in any language you want. Here at Linio we are big fans of Java, PHP, Kotlin and TypeScript.
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fjavatlacati%2Fliniobuzz.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fjavatlacati%2Fliniobuzz?ref=badge_large)
